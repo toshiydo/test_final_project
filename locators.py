@@ -6,5 +6,5 @@ class MainPageLocators():
 
 class LoginPageLocators():
     LOGIN_FORM = (By.CSS_SELECTOR, "input[id='id_login-username']")
-    LOGIN_REGISTRATION = (By.CSS_SELECTOR, "input[id='id_registration-email']")
+    REGISTER_FORM = (By.CSS_SELECTOR, "input[id='id_registration-email']")
     
