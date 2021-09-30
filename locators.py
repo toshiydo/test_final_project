@@ -8,7 +8,11 @@ class ProductPageLocators:
     PRICE_TRASH = (By.CSS_SELECTOR, ".alertinner p strong")
     SUCCESS_MESSAGE = (By.CSS_SELECTOR, "[id='messages'] .alertinner")
 
-class BasePageLocators():
+class BasePageLocators:
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
     
+class BasketPageLocators:
+    LOOK_IN_BASKET = (By.CSS_SELECTOR, ".btn-group a.btn.btn-default")
+    NO_PRODUCT_IN_BASKET = (By.CSS_SELECTOR, ".col-sm-6.h3")
+    BASKET_TEXT = (By.XPATH, "//*[@id='content_inner']/p")
