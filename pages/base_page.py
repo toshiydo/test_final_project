@@ -4,7 +4,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from .locators import MainPageLocators
+from .locators import BasePageLocators, BasketPageLocators
 import math
 class BasePage():
     def __init__(self, browser, url, timeout=10):
@@ -14,6 +14,17 @@ class BasePage():
 
     def open(self):
         self.browser.get(self.url)
+
+    def go_to_login_page(self):
+        link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
+        link.click()
+
+    def go_to_basket(self):
+        basket = self.browser.find_element(*BasketPageLocators.BASKET)
+        basket.click()
+
+    def should_be_login_link(self):
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
         
     def is_element_present(self, how, what):
         try:
@@ -22,8 +33,7 @@ class BasePage():
             return False
         return True
 
-    def should_be_login_link(self):
-        assert self.is_element_present(*MainPageLocators.LOGIN_LINK), "Login link is not presented"
+
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
@@ -54,4 +64,31 @@ class BasePage():
         except TimeoutException:
             return False
 
+        return True
+    def is_element_text(self, how, what):
+        try:
+            element = self.browser.find_element(how, what)
+            text = element.text
+        except NoSuchElementException:
+            return False
+        return text
+
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented," \
+                                                                    " probably unauthorised user"
+
+    def input_text(self, how, what, text):
+        try:
+            element = self.browser.find_element(how, what)
+            element.send_keys(text)
+        except NoSuchElementException:
+            return False
+        return True
+
+    def click_button(self, how, what):
+        try:
+            button = self.browser.find_element(how, what)
+            button.click()
+        except NoSuchElementException:
+            return False
         return True
